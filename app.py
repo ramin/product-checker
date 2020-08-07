@@ -279,9 +279,9 @@ class Walmart:
         webhook_url = webhook_dict[hook]
         page = requests.get(url)
         tree = html.fromstring(page.content)
-        title_raw = tree.xpath("//h1[@class='prod-ProductTitle font-normal']")
+        title_raw = tree.xpath("//h1[starts-with(@class, 'prod-ProductTitle')]")
         title = title_raw[0].text
-        price_raw = tree.xpath("//span[@class='price display-inline-block arrange-fit price price--stylized']//span[@class='price-characteristic']")
+        price_raw = tree.xpath("//span[starts-with(@class, 'price display-inline-block')]//span")
         price = price_raw[0].text
         img_raw = tree.xpath("//meta[@property='og:image']/@content")
         img = img_raw[0]
