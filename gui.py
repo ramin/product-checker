@@ -120,7 +120,7 @@ class WebhookManager ( wx.Frame ):
 			#self.webhookList.SetSelection(item_id)
 
 	def OnDelete(self, event):
-		
+
 		webhook_dict = return_data("./data/webhooks.json")
 		sel = self.webhookList.GetSelection()
 		text = self.webhookList.GetString(sel)
@@ -171,11 +171,11 @@ class WebhookDialog ( wx.Dialog ):
 
 		# Connect Events
 		self.okButton.Bind( wx.EVT_BUTTON, self.update )
-		
+
 		webhook_dict = return_data("./data/webhooks.json")
 		for k in webhook_dict:
 			self.combo.Append(k)
-      
+
 	def update(self, e):
 		try:
 			selected = ex.list.GetFocusedItem()
@@ -399,7 +399,7 @@ class GUI ( wx.Frame ):
 
 	def OnRunAll(self, event):
 		for url in urldict:
-			stockdict.update({url: 'False'}) 
+			stockdict.update({url: 'False'})
 		ex.log.AppendText("Processing Selections..." + '\n')
 		t = Thread(target=self.RunAll, args=(self,))
 		t.start()
@@ -444,7 +444,7 @@ class Amazon:
 		if "To discuss automated access to Amazon data please contact api-services-support@amazon.com." in html:
 			print("Amazon's Bot Protection is preventing this call.")
 			ex.log.AppendText("Amazon's Bot Protection prevented a refresh." + '\n')
-		else: 
+		else:
 			status_raw = driver.find_element_by_xpath("//div[@id='olpOfferList']")
 			status_text = status_raw.text
 			title_raw = driver.find_element_by_xpath("//h1[@class='a-size-large a-spacing-none']")
@@ -459,11 +459,11 @@ class Amazon:
 				slack_data = {
 					'username': "Amazon Bot",
 					'avatar_url': "https://github.com/tnware/product-checker/raw/master/img/amazon.png",
-					'content': "Amazon Stock Alert:", 
-					'embeds': [{ 
-						'title': title,  
-						'description': title + " in stock on Amazon", 
-						'url': url, 
+					'content': "Amazon Stock Alert:",
+					'embeds': [{
+						'title': title,
+						'description': title + " in stock on Amazon",
+						'url': url,
 						"fields": [
 						{
 							"name": "Time:",
@@ -474,7 +474,7 @@ class Amazon:
 							"value": "In Stock"
 						}
 								],
-						'thumbnail': { 
+						'thumbnail': {
 							'url': img
 							}
 						}]
@@ -510,11 +510,11 @@ class BH:
 				slack_data = {
 					'username': "BH Photo Bot",
 					'avatar_url': "https://github.com/tnware/product-checker/raw/master/img/bhphoto.png",
-					'content': "BH Photo Stock Alert: " + url, 
-					'embeds': [{ 
-						'title': url,  
-						'description': url + " in stock at BH Photo", 
-						'url': url, 
+					'content': "BH Photo Stock Alert: " + url,
+					'embeds': [{
+						'title': url,
+						'description': url + " in stock at BH Photo",
+						'url': url,
 						"fields": [
 						{
 							"name": "Time:",
@@ -525,7 +525,7 @@ class BH:
 							"value": "In Stock"
 						}
 								],
-						'thumbnail': { 
+						'thumbnail': {
 							'url': "https://wiki.tripwireinteractive.com/images/4/47/Placeholder.png"
 							}
 						}]
@@ -571,7 +571,7 @@ class BestBuy:
 		elif stock_status == "CHECK_STORES":
 			print(product_name + " sold out @ BestBuy (check stores status)")
 			stockdict.update({sku: 'False'})
-		else: 
+		else:
 			if stock_status == "ADD_TO_CART":
 				print("[" + current_time + "] " + "In Stock: (BestBuy.com) " + product_name + " - " + link)
 				ex.log.AppendText("[" + current_time + "] " + "In Stock: (BestBuy.com) " + product_name + " - " + link + '\n')
@@ -579,11 +579,11 @@ class BestBuy:
 				slack_data = {
 					'username': "BestBuy Bot",
 					'avatar_url': "https://github.com/tnware/product-checker/raw/master/img/bestbuy.png",
-					'content': "BestBuy Stock Alert:", 
-					'embeds': [{ 
-						'title': product_name,  
-						'description': product_name + " in stock at BestBuy", 
-						'url': link, 
+					'content': "BestBuy Stock Alert:",
+					'embeds': [{
+						'title': product_name,
+						'description': product_name + " in stock at BestBuy",
+						'url': link,
 						"fields": [
 						{
 							"name": "Time:",
@@ -594,7 +594,7 @@ class BestBuy:
 							"value": "In Stock"
 						}
 								],
-						'thumbnail': { 
+						'thumbnail': {
 							'url': bbimgdict.get(sku)
 							}
 						}]
@@ -637,11 +637,11 @@ class Gamestop:
 			slack_data = {
 				'username': "GameStop Bot",
 				'avatar_url': "https://github.com/tnware/product-checker/raw/master/img/gamestop.png",
-				'content': "GameStop Stock Alert:", 
-				'embeds': [{ 
-					'title': title,  
-					'description': title + " in stock at GameStop", 
-					'url': url, 
+				'content': "GameStop Stock Alert:",
+				'embeds': [{
+					'title': title,
+					'description': title + " in stock at GameStop",
+					'url': url,
 					"fields": [
 					{
 						"name": "Time:",
@@ -652,7 +652,7 @@ class Gamestop:
 						"value": "In Stock"
 					}
 							],
-					'thumbnail': { 
+					'thumbnail': {
 						'url': img
 						}
 					}]
@@ -695,11 +695,11 @@ class Target:
 			slack_data = {
 				'username': "Target Bot",
 				'avatar_url': "https://github.com/tnware/product-checker/raw/master/img/target.png",
-				'content': "Target Stock Alert:", 
-				'embeds': [{ 
-					'title': title,  
-					'description': title + " in stock at Target", 
-					'url': url, 
+				'content': "Target Stock Alert:",
+				'embeds': [{
+					'title': title,
+					'description': title + " in stock at Target",
+					'url': url,
 					"fields": [
 					{
 						"name": "Time:",
@@ -710,7 +710,7 @@ class Target:
 						"value": "In Stock"
 					}
 							],
-					'thumbnail': { 
+					'thumbnail': {
 						'url': img
 						}
 					}]
@@ -732,9 +732,9 @@ class Walmart:
 		webhook_url = webhook_dict[hook]
 		page = requests.get(url)
 		tree = html.fromstring(page.content)
-	        title_raw = tree.xpath("//h1[starts-with(@class, 'prod-ProductTitle')]")
-        	title = title_raw[0].text
-	        price_raw = tree.xpath("//span[starts-with(@class, 'price display-inline-block')]//span")
+		title_raw = tree.xpath("//h1[starts-with(@class, 'prod-ProductTitle')]")
+		title = title_raw[0].text
+		price_raw = tree.xpath("//span[starts-with(@class, 'price display-inline-block')]//span")
 		price = price_raw[0].text
 		img_raw = tree.xpath("//meta[@property='og:image']/@content")
 		img = img_raw[0]
@@ -747,11 +747,11 @@ class Walmart:
 				slack_data = {
 					'username': "Walmart Bot",
 					'avatar_url': "https://github.com/tnware/product-checker/raw/master/img/walmart.png",
-					'content': "Walmart Stock Alert:", 
-					'embeds': [{ 
-						'title': title,  
-						'description': title + " in stock at Walmart for $" + price, 
-						'url': url, 
+					'content': "Walmart Stock Alert:",
+					'embeds': [{
+						'title': title,
+						'description': title + " in stock at Walmart for $" + price,
+						'url': url,
 						"fields": [
 						{
 						"name": "Time:",
@@ -762,7 +762,7 @@ class Walmart:
 							"value": "$" + price
 						}
 								],
-						'thumbnail': { 
+						'thumbnail': {
 							'url': img
 							}
 						}]
@@ -786,7 +786,7 @@ class Walmart:
 						except:
 							print("Webhook sending failed. Invalid URL configured.")
 				stockdict.update({url: 'True'})
-			else: 
+			else:
 				print("[" + current_time + "] " + "Sold Out: (Walmart.com) " + title)
 				#ex.log.AppendText("[" + current_time + "] " + "Sold Out: (Walmart.com) " + title + '\n')
 				stockdict.update({url: 'False'})
@@ -794,7 +794,7 @@ class Walmart:
 def write_log(string):
     try:
         ex.log.AppendText((string + '\n'))
-    except: 
+    except:
         print("Failed to output to log - Message: \n " + string)
 
 def amzfunc(url, hook, i):
@@ -961,7 +961,7 @@ def RunJob(url, hook, i):
 	elif "bestbuy.com" in url:
 		try:
 			print("BestBuy URL detected using Webhook destination " + hook)
-			#ex.log.AppendText("BestBuy URL detected using Webhook destination " + hook + '\n')          
+			#ex.log.AppendText("BestBuy URL detected using Webhook destination " + hook + '\n')
 			parsed = urlparse.urlparse(url)
 			sku = parse_qs(parsed.query)['skuId']
 			sku = sku[0]
@@ -1078,7 +1078,7 @@ def main():
 
 	#set all URLs to be "out of stock" to begin
 	for url in urldict:
-		stockdict.update({url: 'False'}) 
+		stockdict.update({url: 'False'})
 
 	for prod in urldict:
 		products.append((prod, urldict[prod], "Inactive"))
